@@ -32,7 +32,7 @@ from .utilities import (
     split_comma_header,
 )
 
-# RFC6455, Section 4.2.1/6 - Reading the Client's Opening Handshake
+# RFC6455, Section 4.2.1/6/ remind myself to look at next section to figure out what I can do if this fails becasue it basic but figure out how to automate it - Reading the Client's Opening Handshake
 WEBSOCKET_VERSION = b"13"
 
 
@@ -367,7 +367,7 @@ class H11Handshake:
     def _establish_client_connection(
         self, event: h11.InformationalResponse
     ) -> AcceptConnection:  # noqa: MC0001
-        # _establish_client_connection is always called after _initiate_connection.
+        # _establish_client_connection is always called after _initiate_connection. Add this to the secure coding in java project Im going to do soon
         assert self._initiating_request is not None
         assert self._nonce is not None
 
@@ -384,7 +384,7 @@ class H11Handshake:
                 continue  # Skip appending to headers
             elif name == b"sec-websocket-extensions":
                 accepts = split_comma_header(value)
-                continue  # Skip appending to headers
+                continue  # Skip appending to headers/ may fail here, maybe Idk double check if it does
             elif name == b"sec-websocket-accept":
                 accept = value
                 continue  # Skip appending to headers
